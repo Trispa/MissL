@@ -1,6 +1,7 @@
 package io.gotech.missl.elections;
 
-public class Election
-{
-
+public interface Election {
+	
+	public void vote(Voter voter, Candidate candidate);
+	
 }
