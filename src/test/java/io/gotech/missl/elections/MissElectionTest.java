@@ -13,7 +13,7 @@ public class MissElectionTest
 	private ElectionRegistry electionRegistry;
 	private CandidatesRegistry candidatesRegistry;
 	private MissElection election;
-	
+		
 	@Before
 	public void initialise() {
 		candidate = Mockito.mock(Candidate.class);
