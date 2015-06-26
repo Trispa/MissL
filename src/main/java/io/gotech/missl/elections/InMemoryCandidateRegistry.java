@@ -24,7 +24,7 @@ public class InMemoryCandidateRegistry implements CandidatesRegistry {
 			throw  new CandidateAlreadyInRegistryException ("le candidat est deja present dans le registre de l'éléction");
 		}
 		else{
-		this.listOfCandidate.add(candidate);
+			this.listOfCandidate.add(candidate);
 		}
 	}
 
