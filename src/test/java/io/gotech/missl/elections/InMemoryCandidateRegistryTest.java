@@ -39,8 +39,8 @@ public class InMemoryCandidateRegistryTest {
 	}
 	
 
-	@Test(expected = CandidateAlreadyInRegistryException.class)
-	public void givenCandidateAddedInMomeryCandidateRegistryWhenAddShouldRaisAnCandidateAlreadyInRegistryException() throws Exception 
+	@Test(expected = CandidateAlreadyRegistredException.class)
+	public void givenCandidateAddedInMomeryCandidateRegistryWhenAddShouldRaisAnCandidateAlreadyRegistredException() throws Exception 
 	{
 		inMemoryCandidateRegistry.add(candidateInRegistry);	
 	}
