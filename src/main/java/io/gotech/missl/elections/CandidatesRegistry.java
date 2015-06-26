@@ -3,7 +3,7 @@ package io.gotech.missl.elections;
 public interface CandidatesRegistry
 {
 	
-	public boolean isCandidateInRegistry(Candidate candidate);
-	public void addCandidateInRegistry(Candidate candidate);
+	public boolean contains(Candidate candidate);
+	public void add(Candidate candidate);
 	
 }

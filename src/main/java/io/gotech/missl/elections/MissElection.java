@@ -13,7 +13,7 @@ public class MissElection implements Election
 	@Override
 	public void vote(Voter voter, Candidate candidate)
 	{
-		if(candidatesRegistry.isCandidateInRegistry(candidate)) {
+		if(candidatesRegistry.contains(candidate)) {
 			registry.registerVote(voter, candidate);
 		}
 		else {
