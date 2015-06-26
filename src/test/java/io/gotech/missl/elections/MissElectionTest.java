@@ -2,9 +2,11 @@ package io.gotech.missl.elections;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
-
+@RunWith(MockitoJUnitRunner.class)
 public class MissElectionTest
 {
 
@@ -26,13 +28,13 @@ public class MissElectionTest
 	@Test(expected=NotRegisteredException.class)
 	public void givenCandidateNotRegisteredForCurrentElectionWhenVoteShouldRaiseNotRegisteredException() throws Exception
 	{
-		Mockito.when(candidatesRegistry.isCandidateInRegistry(candidate)).thenReturn(false);
+		Mockito.when(candidatesRegistry.contains(candidate)).thenReturn(false);
 		election.vote(voter, candidate);
 	}
 	
 	@Test
 	public void givenCandidateRegisteredForCurrentElectionWhenVoterVoteShouldAddVoteTheElectionRegistry() {
-		Mockito.when(candidatesRegistry.isCandidateInRegistry(candidate)).thenReturn(true);
+		Mockito.when(candidatesRegistry.contains(candidate)).thenReturn(true);
 		election.vote(voter, candidate);
 		Mockito.verify(electionRegistry, Mockito.times(1)).registerVote(voter, candidate);
 	}
