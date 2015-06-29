@@ -1,66 +1,62 @@
 package io.gotech.missl.elections;
 
-import static org.junit.Assert.*;
+import java.util.UUID;
+
+import io.gotech.missl.elections.candidates.Candidate;
+import io.gotech.missl.elections.candidates.CandidateNumber;
+import io.gotech.missl.elections.candidates.CandidatesRegistry;
+import io.gotech.missl.users.User;
+import io.gotech.missl.users.UserId;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MissElectionTest
 {
-
-	private Candidate candidate;
-	private  Voter voter;
-	private ElectionRegistry electionRegistry;
-	private CandidatesRegistry candidatesRegistry;
-	private MissElection election;
+	
+	
+	private static final UserId	USER_ID	= new UserId(UUID.randomUUID());
+	private static final CandidateNumber	CANDIDATE_NUMBER	= new CandidateNumber(4);
+	private static final VoteWeight	VOTE_WEIGHT	= new VoteWeight(2);
+	private User user;
+	private ElectionProcess electionProcess;
+	private MissElection missElection;
 	
 		
 	@Before
 	public void initialise() {
-		candidate = Mockito.mock(Candidate.class);
-		Mockito.when(candidate.isFemale()).thenReturn(true);
-		voter = Mockito.mock(Voter.class);
-		electionRegistry = Mockito.mock(ElectionRegistry.class);
-		candidatesRegistry = Mockito.mock(CandidatesRegistry.class);
-		election = new MissElection(electionRegistry, candidatesRegistry);
+		user = Mockito.mock(User.class);
+		electionProcess = Mockito.mock(ElectionProcess.class);
+		Mockito.when(user.isFemale()).thenReturn(true);
 		
-	}
-	
-	@Test(expected=NotRegisteredException.class)
-	public void givenCandidateNotRegisteredForCurrentElectionWhenVoteShouldRaiseNotRegisteredException() throws Exception
-	{
-		Mockito.when(candidatesRegistry.contains(candidate)).thenReturn(false);
-		election.vote(voter, candidate);
+		missElection = new MissElection(electionProcess);
+		
 	}
 	
 	@Test
 	public void givenCandidateRegisteredForCurrentElectionWhenVoterVoteShouldAddVoteTheElectionRegistry() {
-		Mockito.when(candidatesRegistry.contains(candidate)).thenReturn(true);
-		election.vote(voter, candidate);
-		Mockito.verify(electionRegistry, Mockito.times(1)).registerVote(voter, candidate);
+		missElection.registerVote(USER_ID, CANDIDATE_NUMBER, VOTE_WEIGHT);
+		Mockito.verify(electionProcess, Mockito.times(1)).registerVote(USER_ID, CANDIDATE_NUMBER, VOTE_WEIGHT);
 	}
 	
 	@Test
-	public void givenCandidateNotInRegistryCandidateWhenResgisterCandidateShouldAddCandidateInRegistry(){
+	public void givenCandidateNotInRegistryCandidateWhenResgisterCandidateItShouldTellElectionProcessToAddCandidate(){
 		
-		election.registerCandidate(candidate);
-		Mockito.verify(candidatesRegistry, Mockito.times(1)).add(candidate);
+		missElection.registerCandidate(user);
+		Mockito.verify(electionProcess, Mockito.times(1)).registerCandidate(Mockito.any(Candidate.class));;
 	}
-	@Test(expected = CandidateAlreadyRegistredException.class)
-	public void givenCandidateAlreadyRegistedWhenRegisterCandidateShouldRaiseAnException() throws Exception {
-		Mockito.doThrow(CandidateAlreadyRegistredException.class).when(candidatesRegistry).add(candidate);
-		election.registerCandidate(candidate);
-		
-	}
+	
+	
 	
 	@Test(expected = BadCandidateSexException.class)
 	public void  givenCandidateIsNotAFemaleWhenRegistrerCandidateInMissElectionShouldRaiseAnException(){
-		Mockito.when(candidate.isFemale()).thenReturn(false);
-		election.registerCandidate(candidate);
+		Mockito.when(user.isFemale()).thenReturn(false);
+		missElection.registerCandidate(user);
 	}
 	
 	

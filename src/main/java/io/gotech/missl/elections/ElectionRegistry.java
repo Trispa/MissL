@@ -1,7 +1,9 @@
 package io.gotech.missl.elections;
 
+import io.gotech.missl.elections.candidates.CandidateNumber;
+import io.gotech.missl.users.UserId;
+
 public interface ElectionRegistry
 {
-	public boolean hasVoterVotedForCandidate(Voter voter, Candidate candidate);
-	public void registerVote(Voter voter, Candidate candidate);
+	public void registerVote(UserId userId, CandidateNumber candidateNumber, VoteWeight voteWeight);
 }

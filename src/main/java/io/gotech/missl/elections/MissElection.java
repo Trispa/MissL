@@ -1,34 +1,37 @@
 package io.gotech.missl.elections;
 
+import io.gotech.missl.elections.candidates.Candidate;
+import io.gotech.missl.elections.candidates.CandidateNumber;
+import io.gotech.missl.users.User;
+import io.gotech.missl.users.UserId;
+
 public class MissElection implements Election
 {
-	private ElectionRegistry registry;
-	private CandidatesRegistry candidatesRegistry;
+	private ElectionProcess electionProcess;
 	
-	public MissElection(ElectionRegistry electionRegistry, CandidatesRegistry candidatesRegistry) {
-		this.registry = electionRegistry;
-		this.candidatesRegistry = candidatesRegistry;
+	public MissElection(ElectionProcess electionProcess) {
+		this.electionProcess = electionProcess;
 	}
 	
 	@Override
-	public void vote(Voter voter, Candidate candidate)
-	{
-		if(this.candidatesRegistry.contains(candidate)) {
-			this.registry.registerVote(voter, candidate);
-		}
-		else {
-			throw new NotRegisteredException("Candidate is not registered for this election");
-		}
-		
-	}
-
-	@Override
-	public void registerCandidate(Candidate candidate) {
-		if(candidate.isFemale()){
-			this.candidatesRegistry.add(candidate);
+	public Candidate registerCandidate(User userToBecomeCandidate) {
+		if(userToBecomeCandidate.isFemale()){
+			Candidate candidate = new Candidate(userToBecomeCandidate, this);
+			electionProcess.registerCandidate(candidate);
+			return candidate;
 		}
 		else
 			throw new BadCandidateSexException("Candidate is not a Female So can't registred in Miss Election");
 	}
+	
+	@Override
+	public void registerVote(UserId userID, CandidateNumber candidateNumber,
+			VoteWeight voteWeight)
+	{
+		this.electionProcess.registerVote(userID, candidateNumber, voteWeight);
+		
+	}
+
+	
 
 }
