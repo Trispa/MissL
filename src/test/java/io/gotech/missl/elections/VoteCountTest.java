@@ -1,7 +1,7 @@
 package io.gotech.missl.elections;
 
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -19,4 +19,21 @@ public class VoteCountTest
 		assertTrue(initialCount.equals(resultingCount));
 	}
 
+	@Test
+	public void testEquals() throws Exception {
+		resultingCount = new VoteCount(4);
+		assertFalse(initialCount.equals(resultingCount));
+	}
+
+	@Test
+	public void defaultConstructor() throws Exception {
+		VoteCount voteCount = new VoteCount();
+		VoteCount voteCountdefault = new VoteCount(0);
+		assertTrue(voteCount.equals(voteCountdefault));
+	}
+
+	
+
+	
+	
 }

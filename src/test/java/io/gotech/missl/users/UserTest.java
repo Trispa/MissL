@@ -1,5 +1,7 @@
 package io.gotech.missl.users;
 
+import static org.junit.Assert.*;
+
 import java.util.UUID;
 
 import io.gotech.missl.elections.VoteWeight;
@@ -18,6 +20,7 @@ public class UserTest
 	@Mock
 	Candidate candidate;
 	private User user;
+	
 	private final UserId	USERID = new UserId(UUID.randomUUID());
 	private final UserSex	USERSEX = UserSex.FEMALE;
 	private final VoteWeight	USERVOTEWEIGHT = new VoteWeight(1);
@@ -27,6 +30,8 @@ public class UserTest
 	public void initialise() {
 		
 		user = new User(USERID, USERSEX, USERVOTEWEIGHT);
+		
+		
 	}
 	@Test
 	public void givenAUserAndCandidateWhenVoteItShouldTellCandidateToReceiveVoteFromUser() throws Exception
@@ -34,6 +39,28 @@ public class UserTest
 		user.vote(candidate);
 		Mockito.verify(candidate).receiveVote(USERID, USERVOTEWEIGHT);
 	}
-
+	@Test
+	public void givenUserIsFemaleWhenIsFemaleReturnTrue() throws Exception {
+		assertTrue(user.isFemale());
+	}
+	@Test
+	public void givenUserIsNotFemaleWhenIsFemaleReturnFalse() throws Exception {
+		UserSex	USERSEX = UserSex.MALE;
+		user = new User(USERID, USERSEX, USERVOTEWEIGHT);
+		assertFalse(user.isFemale());
+	}
+	@Test
+	public void givenAnOtherUserWhenEqualsReturnFalse() throws Exception {
+		
+		UserId	USERID = new UserId(UUID.randomUUID());
+		User anOtherUser = new User(USERID, USERSEX, USERVOTEWEIGHT);
+		assertFalse(user.equals(anOtherUser));
+	}
+	@Test
+	public void givenTheSameUserWhenEqualsReturnFalse() throws Exception {
+		
+		assertTrue(user.equals(user));
+	}
+	
 	
 }

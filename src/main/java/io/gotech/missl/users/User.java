@@ -21,7 +21,7 @@ public class User
 	}
 	
 	public boolean equals(User anotherUser) {
-		return this.id == anotherUser.id;
+		return this.id.equals(anotherUser.id);
 	}
 	
 	public void vote(Candidate candidate) {

@@ -27,6 +27,9 @@ public class ElectionProcessTest
 	private CandidateNumberGenerator candidateNumberGenerator;
 	@InjectMocks
 	private ElectionProcess		electionProcess;
+	//TODO la fonction a tester ne doit pas être mocker sinon coverage ne le consider pas comme un test
+	//private ElectionProcess		electionProcess = new ElectionProcess(electionRegistry, candidatesRegistry,candidateNumberGenerator);
+	
 	@Mock
 	private Candidate candidate;
 	@Mock
@@ -74,6 +77,8 @@ public class ElectionProcessTest
 		electionProcess.registerCandidate(candidate);
 		
 	}
+
+	
 	
 	
 

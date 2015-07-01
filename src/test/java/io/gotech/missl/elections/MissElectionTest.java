@@ -4,14 +4,12 @@ import java.util.UUID;
 
 import io.gotech.missl.elections.candidates.Candidate;
 import io.gotech.missl.elections.candidates.CandidateNumber;
-import io.gotech.missl.elections.candidates.CandidatesRegistry;
 import io.gotech.missl.users.User;
 import io.gotech.missl.users.UserId;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 

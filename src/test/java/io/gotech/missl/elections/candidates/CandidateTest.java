@@ -1,6 +1,5 @@
 package io.gotech.missl.elections.candidates;
 
-import static org.junit.Assert.*;
 
 import java.util.UUID;
 
@@ -11,12 +10,10 @@ import io.gotech.missl.elections.candidates.CandidateMultipleNumberAssignmentExc
 import io.gotech.missl.elections.candidates.CandidateNumber;
 import io.gotech.missl.users.User;
 import io.gotech.missl.users.UserId;
-import io.gotech.missl.users.UserSex;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
