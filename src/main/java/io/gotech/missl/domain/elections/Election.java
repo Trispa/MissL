@@ -1,6 +1,5 @@
 package io.gotech.missl.domain.elections;
 
-import java.util.List;
 
 import io.gotech.missl.domain.elections.candidates.Candidate;
 import io.gotech.missl.domain.elections.candidates.CandidateNumber;
