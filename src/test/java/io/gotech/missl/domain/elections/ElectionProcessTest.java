@@ -2,6 +2,8 @@ package io.gotech.missl.domain.elections;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import io.gotech.missl.domain.elections.CandidateAlreadyRegistredException;
@@ -16,6 +18,7 @@ import io.gotech.missl.domain.elections.candidates.CandidatesRegistry;
 import io.gotech.missl.domain.users.User;
 import io.gotech.missl.domain.users.UserId;
 import io.gotech.missl.statistiques.CandidateStats;
+import io.gotech.missl.statistiques.ElectionStats;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +51,10 @@ public class ElectionProcessTest
 	private final UserId USER_ID = new UserId(UUID.randomUUID());
 	private final VoteWeight VOTE_WEIGHT = new VoteWeight(2);
 	private final CandidateNumber CANDIDATENUMBER = new CandidateNumber(3);
-	private final CandidateStats CANDIDATESTATS = new CandidateStats(new VoteCount(4), 2); 
+	CandidateStats CANDIDATESTATS = new CandidateStats(new VoteCount(4), 2, CANDIDATE_NUMBER); 
+	List<CandidateStats> listCandidateStatsTreedByRank = new ArrayList<CandidateStats>();
+	ElectionStats ELECTIONSTATS = new ElectionStats(listCandidateStatsTreedByRank);
+	
 	@Test(expected=NotRegisteredException.class)
 	public void givenCandidateNotRegisteredForCurrentElectionWhenVoteShouldRaiseNotRegisteredException() throws Exception
 	{
@@ -95,6 +101,14 @@ public class ElectionProcessTest
 		Mockito.verify(electionRegistry).getCandidateStats(CANDIDATENUMBER);
 		assertEquals(CANDIDATESTATS, candidateStats); 
 		
+	}
+
+	@Test
+	public void testGetElectionStats() throws Exception {
+		Mockito.when(electionRegistry.getElectionStats()).thenReturn(ELECTIONSTATS);
+		ElectionStats electionStats = electionProcess.getElectionStats();
+		Mockito.verify(electionRegistry).getElectionStats();
+		assertEquals(ELECTIONSTATS, electionStats); 
 	}
 
 	

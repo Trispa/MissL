@@ -7,6 +7,7 @@ import io.gotech.missl.domain.elections.candidates.CandidateNumber;
 import io.gotech.missl.domain.users.User;
 import io.gotech.missl.domain.users.UserId;
 import io.gotech.missl.statistiques.CandidateStats;
+import io.gotech.missl.statistiques.ElectionStats;
 
 
 public abstract class GeneralElection implements Election
@@ -38,6 +39,11 @@ public abstract class GeneralElection implements Election
 		return this.electionProcess.getCandidateStats(candidateNumber);
 	}
 
+	@Override
+	public ElectionStats getElectionStats(){
+		return this.electionProcess.getElectionStats();
+		
+	}
 	protected abstract void checkCandidateRequirements(User userToBecomeCandidate);
 	
 

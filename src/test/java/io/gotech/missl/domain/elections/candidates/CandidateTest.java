@@ -37,7 +37,7 @@ public class CandidateTest {
 	private final VoteWeight	VOTEWEIGHT = new VoteWeight(1);
 	
 	
-	CandidateStats CANDIDATESTATS = new CandidateStats(new VoteCount(4), 2); ;
+	CandidateStats CANDIDATESTATS = new CandidateStats(new VoteCount(4), 2, CANDIDATENUMBER); ;
 	private Candidate  candidate;
 	
 	@Before

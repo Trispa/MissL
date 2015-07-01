@@ -6,6 +6,7 @@ import io.gotech.missl.domain.elections.candidates.CandidateNumberGenerator;
 import io.gotech.missl.domain.elections.candidates.CandidatesRegistry;
 import io.gotech.missl.domain.users.UserId;
 import io.gotech.missl.statistiques.CandidateStats;
+import io.gotech.missl.statistiques.ElectionStats;
 
 public class ElectionProcess
 {
@@ -36,5 +37,10 @@ public class ElectionProcess
 	public CandidateStats getCandidateStats(CandidateNumber candidateNumber) {
 		return electionRegistry.getCandidateStats(candidateNumber);
 		
+	}
+
+	public ElectionStats getElectionStats() {
+		
+		return this.electionRegistry.getElectionStats();
 	}
 }
