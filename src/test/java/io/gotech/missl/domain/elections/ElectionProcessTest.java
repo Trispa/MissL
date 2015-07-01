@@ -1,5 +1,7 @@
 package io.gotech.missl.domain.elections;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.UUID;
 
 import io.gotech.missl.domain.elections.CandidateAlreadyRegistredException;
@@ -13,6 +15,7 @@ import io.gotech.missl.domain.elections.candidates.CandidateNumberGenerator;
 import io.gotech.missl.domain.elections.candidates.CandidatesRegistry;
 import io.gotech.missl.domain.users.User;
 import io.gotech.missl.domain.users.UserId;
+import io.gotech.missl.statistiques.CandidateStats;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +27,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ElectionProcessTest
 {
+	
 	@Mock
 	private CandidatesRegistry	candidatesRegistry;
 	@Mock
@@ -43,7 +47,8 @@ public class ElectionProcessTest
 	private final CandidateNumber CANDIDATE_NUMBER = new CandidateNumber(4);
 	private final UserId USER_ID = new UserId(UUID.randomUUID());
 	private final VoteWeight VOTE_WEIGHT = new VoteWeight(2);
-	
+	private final CandidateNumber CANDIDATENUMBER = new CandidateNumber(3);
+	private final CandidateStats CANDIDATESTATS = new CandidateStats(new VoteCount(4), 2); 
 	@Test(expected=NotRegisteredException.class)
 	public void givenCandidateNotRegisteredForCurrentElectionWhenVoteShouldRaiseNotRegisteredException() throws Exception
 	{
@@ -80,6 +85,15 @@ public class ElectionProcessTest
 	public void givenCandidateAlreadyRegistedWhenRegisterCandidateShouldRaiseAnException() throws Exception {
 		Mockito.doThrow(CandidateAlreadyRegistredException.class).when(candidatesRegistry).add(candidate);
 		electionProcess.registerCandidate(candidate);
+		
+	}
+
+	@Test
+	public void testGetCandidateStats() throws Exception {
+		Mockito.when(electionRegistry.getCandidateStats(CANDIDATENUMBER)).thenReturn(CANDIDATESTATS);
+		CandidateStats candidateStats = electionProcess.getCandidateStats(CANDIDATENUMBER);
+		Mockito.verify(electionRegistry).getCandidateStats(CANDIDATENUMBER);
+		assertEquals(CANDIDATESTATS, candidateStats); 
 		
 	}
 

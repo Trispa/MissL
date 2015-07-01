@@ -4,6 +4,8 @@ import io.gotech.missl.domain.elections.Election;
 import io.gotech.missl.domain.elections.VoteWeight;
 import io.gotech.missl.domain.users.User;
 import io.gotech.missl.domain.users.UserId;
+import io.gotech.missl.statistiques.CandidateStats;
+
 
 
 public class Candidate
@@ -27,5 +29,12 @@ public class Candidate
 	
 	public void receiveVote(UserId voterId, VoteWeight voteWeight) {
 		election.registerVote(voterId, number, voteWeight);
+	}
+	
+	public CandidateStats getCandidateStats(){
+		
+		return election.getCandidateStats(number);
+		
+		
 	}
 }

@@ -1,5 +1,7 @@
 package io.gotech.missl.domain.elections;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.UUID;
 
 import io.gotech.missl.domain.elections.BadCandidateSexException;
@@ -10,6 +12,7 @@ import io.gotech.missl.domain.elections.candidates.Candidate;
 import io.gotech.missl.domain.elections.candidates.CandidateNumber;
 import io.gotech.missl.domain.users.User;
 import io.gotech.missl.domain.users.UserId;
+import io.gotech.missl.statistiques.CandidateStats;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +31,8 @@ public class MissElectionTest
 	private User user;
 	private ElectionProcess electionProcess;
 	private MissElection missElection;
+	private final CandidateNumber CANDIDATENUMBER = new CandidateNumber(3);
+	CandidateStats CANDIDATESTATS = new CandidateStats(new VoteCount(4), 2); 
 	
 		
 	@Before
@@ -61,6 +66,15 @@ public class MissElectionTest
 		missElection.registerCandidate(user);
 	}
 	
+	
+	@Test
+	public void testGetCandidateStats() throws Exception {
+		Mockito.when(electionProcess.getCandidateStats(CANDIDATENUMBER)).thenReturn(CANDIDATESTATS);
+		CandidateStats candidateStats = missElection.getCandidateStats(CANDIDATENUMBER);
+		Mockito.verify(electionProcess).getCandidateStats(CANDIDATENUMBER);
+		assertEquals(CANDIDATESTATS, candidateStats); 
+			
+	}
 	
 
 }

@@ -1,5 +1,6 @@
 package io.gotech.missl.domain.elections;
 
+
 import io.gotech.missl.domain.users.User;
 
 public class MissElection extends GeneralElection {
@@ -14,4 +15,6 @@ public class MissElection extends GeneralElection {
 		    "Candidate is not a Female So can't registred in Miss Election");
 	}
     }
+    
+
 }

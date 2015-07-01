@@ -5,6 +5,7 @@ import io.gotech.missl.domain.elections.candidates.CandidateNumber;
 import io.gotech.missl.domain.elections.candidates.CandidateNumberGenerator;
 import io.gotech.missl.domain.elections.candidates.CandidatesRegistry;
 import io.gotech.missl.domain.users.UserId;
+import io.gotech.missl.statistiques.CandidateStats;
 
 public class ElectionProcess
 {
@@ -30,5 +31,10 @@ public class ElectionProcess
 		else {
 			throw new NotRegisteredException("Candidate is not registered for this election");
 		}	
+	}
+
+	public CandidateStats getCandidateStats(CandidateNumber candidateNumber) {
+		return electionRegistry.getCandidateStats(candidateNumber);
+		
 	}
 }

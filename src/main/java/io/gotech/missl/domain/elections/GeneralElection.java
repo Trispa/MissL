@@ -1,9 +1,13 @@
 package io.gotech.missl.domain.elections;
 
+import java.util.List;
+
 import io.gotech.missl.domain.elections.candidates.Candidate;
 import io.gotech.missl.domain.elections.candidates.CandidateNumber;
 import io.gotech.missl.domain.users.User;
 import io.gotech.missl.domain.users.UserId;
+import io.gotech.missl.statistiques.CandidateStats;
+
 
 public abstract class GeneralElection implements Election
 {
@@ -29,7 +33,12 @@ public abstract class GeneralElection implements Election
 	{
 		this.electionProcess.registerVote(userID, candidateNumber, voteWeight);
 	}
-	
+	@Override
+	public CandidateStats getCandidateStats(CandidateNumber candidateNumber){
+		return this.electionProcess.getCandidateStats(candidateNumber);
+	}
+
 	protected abstract void checkCandidateRequirements(User userToBecomeCandidate);
+	
 
 }
