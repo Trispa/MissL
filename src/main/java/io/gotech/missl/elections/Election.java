@@ -8,6 +8,6 @@ import io.gotech.missl.users.UserId;
 public interface Election {
 	
 	public Candidate registerCandidate(User candidate);
-	public void registerVote(UserId userId, CandidateNumber candidateNumber, VoteWeight voteweight);
+	public void registerVote(UserId userID, CandidateNumber candidateNumber, VoteWeight voteWeight);
 	
 }
