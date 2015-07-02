@@ -1,11 +1,14 @@
 package io.gotech.missl.domain.elections;
 
-
 import io.gotech.missl.domain.users.User;
 
+import org.joda.time.DateTime;
+
 public class MissElection extends GeneralElection {
-    public MissElection(ElectionProcess electionProcess) {
-	super(electionProcess);
+
+    public MissElection(User creator, ElectionProcess electionProcess,
+	    DateTime startDate, DateTime endDate) {
+	super(creator, electionProcess, startDate, endDate);
     }
 
     @Override
@@ -15,6 +18,5 @@ public class MissElection extends GeneralElection {
 		    "Candidate is not a Female So can't registred in Miss Election");
 	}
     }
-    
 
 }
