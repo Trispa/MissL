@@ -54,6 +54,17 @@
       	  <artifactId>objectify</artifactId>
       	  <version>5.1.5</version>
         </dependency>
+        <dependency>
+		  <groupId>com.google.inject</groupId>
+	      <artifactId>guice</artifactId>
+	      <version>4.0</version>
+        </dependency>
+        <dependency>
+  		  <groupId>com.google.inject.extensions</groupId>
+          <artifactId>guice-servlet</artifactId>
+          <version>4.0</version>
+        </dependency>
+        
         <!-- Test Dependencies -->
         <dependency>
             <groupId>junit</groupId>
