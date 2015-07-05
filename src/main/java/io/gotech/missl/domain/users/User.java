@@ -25,12 +25,16 @@ public class User {
 	this.authSource = authSource;
     }
 
-    public boolean isFemale() {
-	return this.gender.equals(UserGender.FEMALE);
+    public UserId getId() {
+	return this.id;
     }
 
-    public boolean equals(User anotherUser) {
-	return this.id.equals(anotherUser.id);
+    public void assignId(UserId id) {
+	this.id = id;
+    }
+
+    public boolean isFemale() {
+	return this.gender.equals(UserGender.FEMALE);
     }
 
     public void vote(Candidate candidate) {

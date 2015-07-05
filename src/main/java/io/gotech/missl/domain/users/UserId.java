@@ -1,15 +1,21 @@
 package io.gotech.missl.domain.users;
 
-import java.util.UUID;
-
 public class UserId {
-    final public UUID uuid;
+    public final Long id;
+    public static final UserId NOT_SET = new UserId(null);
 
-    public UserId(UUID userUUID) {
-	this.uuid = userUUID;
+    public UserId(Long id) {
+	this.id = id;
     }
 
     public boolean equals(UserId anotherUserId) {
-	return uuid.equals(anotherUserId.uuid);
+	if (this.id == null && anotherUserId.id == null) {
+	    return true;
+	}
+	if (this.id != null)
+	    return this.id.equals(anotherUserId.id);
+
+	return false;
+
     }
 }

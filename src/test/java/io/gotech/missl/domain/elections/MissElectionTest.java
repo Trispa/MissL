@@ -10,7 +10,6 @@ import io.gotech.missl.statistiques.ElectionStats;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -22,7 +21,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class MissElectionTest {
 
-    private static final UserId USER_ID = new UserId(UUID.randomUUID());
+    private static final UserId USER_ID = new UserId(new Long(7));
     private static final CandidateNumber CANDIDATE_NUMBER = new CandidateNumber(
 	    4);
     private static final VoteWeight VOTE_WEIGHT = new VoteWeight(2);
