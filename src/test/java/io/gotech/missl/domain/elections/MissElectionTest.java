@@ -84,7 +84,7 @@ public class MissElectionTest {
     }
 
     @Test
-    public void tesGetElectionStats() throws Exception {
+    public void testGetElectionStats() throws Exception {
 
 	Mockito.when(electionProcess.getElectionStats()).thenReturn(
 		ELECTIONSTATS);
