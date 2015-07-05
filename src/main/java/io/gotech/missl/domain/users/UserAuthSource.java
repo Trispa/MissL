@@ -14,4 +14,9 @@ public class UserAuthSource {
 	this.authID = authID;
     }
 
+    public boolean equals(UserAuthSource anotherUserAuthSource) {
+	return this.authSource.equals(anotherUserAuthSource.authSource)
+		&& this.authID == anotherUserAuthSource.authID;
+    }
+
 }

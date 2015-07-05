@@ -2,18 +2,16 @@ package io.gotech.missl.domain.users;
 
 import io.gotech.missl.domain.elections.VoteWeight;
 
-import java.util.UUID;
-
 public class UserBuilder {
-    private UserId userID = null;
+    private UserId userID = UserId.NOT_SET;
     private String firstName = null;
     private String lastName = null;
-    private UserGender sex = null;
+    private UserGender gender = null;
     private VoteWeight voteWeight = null;
     private UserAuthSource authSource = null;
 
-    public UserBuilder withSex(UserGender sex) {
-	this.sex = sex;
+    public UserBuilder withSex(UserGender gender) {
+	this.gender = gender;
 	return this;
     }
 
@@ -43,9 +41,12 @@ public class UserBuilder {
     }
 
     public User build() {
-	if (this.userID == null)
-	    this.userID = new UserId(UUID.randomUUID());
-	return new User(userID, sex, voteWeight, authSource, firstName,
+	if ((firstName == null) || (lastName == null) || (authSource == null)
+		|| (gender == null)) {
+	    throw new UserBuildError(
+		    "There are missing user attributes. The attributes firstName, lastName, authSource and gender are required to create a user");
+	}
+	return new User(userID, gender, voteWeight, authSource, firstName,
 		lastName);
     }
 }

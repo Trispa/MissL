@@ -24,7 +24,7 @@ public class UserTransformer implements Transformer<User, UserInfo> {
     @Override
     public UserInfo transformTo(User user) {
 	UserDTO userDTO = user.getDTO();
-	return new UserInfo(userDTO.id.uuid, userDTO.firstName,
-		userDTO.lastName, userDTO.voteWeight.weight);
+	return new UserInfo(userDTO.id.id, userDTO.firstName, userDTO.lastName,
+		userDTO.voteWeight.weight);
     }
 }

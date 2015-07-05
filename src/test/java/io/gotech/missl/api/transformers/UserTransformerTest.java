@@ -11,8 +11,6 @@ import io.gotech.missl.domain.users.UserGender;
 import io.gotech.missl.domain.users.UserId;
 import io.gotech.missl.domain.users.UserRepository;
 
-import java.util.UUID;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +28,7 @@ public class UserTransformerTest {
     private User user;
 
     private UserTransformer transformer;
-    private final UUID USER_INFO_ID = UUID.randomUUID();
+    private final Long USER_INFO_ID = new Long(4);
     private final UserInfo USER_INFO = new UserInfo(USER_INFO_ID, "John",
 	    "Doe", 3);
     private final UserDTO USER_DTO = new UserDTO(new UserId(USER_INFO_ID),
@@ -61,7 +59,7 @@ public class UserTransformerTest {
 	assertEquals(USER_DTO.firstName, userInfo.firstName);
 	assertEquals(USER_DTO.lastName, userInfo.lastName);
 	assertTrue(USER_DTO.voteWeight.weight == userInfo.voteWeight);
-	assertEquals(USER_DTO.id.uuid, userInfo.id);
+	assertEquals(USER_DTO.id.id, userInfo.id);
 
     }
 

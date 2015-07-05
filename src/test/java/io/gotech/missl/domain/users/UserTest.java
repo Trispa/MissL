@@ -6,8 +6,6 @@ import static org.junit.Assert.assertTrue;
 import io.gotech.missl.domain.elections.VoteWeight;
 import io.gotech.missl.domain.elections.candidates.Candidate;
 
-import java.util.UUID;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +19,7 @@ public class UserTest {
     Candidate candidate;
     private User user;
 
-    private final UserId USER_ID = new UserId(UUID.randomUUID());
+    private final UserId USER_ID = new UserId(new Long(4));
     private final UserGender GENDER = UserGender.FEMALE;
     private final VoteWeight USER_VOTE_WEIGHT = new VoteWeight(1);
     private final String FIRST_NAME = "John";
@@ -51,23 +49,9 @@ public class UserTest {
     @Test
     public void givenUserIsNotFemaleWhenIsFemaleReturnFalse() {
 	user = new UserBuilder().withSex(UserGender.MALE).withUserId(USER_ID)
-		.withVoteWeight(USER_VOTE_WEIGHT).build();
+		.withVoteWeight(USER_VOTE_WEIGHT).withFirstName(FIRST_NAME)
+		.withLastName(LAST_NAME).withAuthSource(AUTH_SOURCE).build();
 	assertFalse(user.isFemale());
-    }
-
-    @Test
-    public void givenAnOtherUserWhenEqualsReturnFalse() {
-
-	UserId USERID = new UserId(UUID.randomUUID());
-	User anotherUser = new UserBuilder().withSex(GENDER)
-		.withVoteWeight(USER_VOTE_WEIGHT).withUserId(USERID).build();
-	assertFalse(user.equals(anotherUser));
-    }
-
-    @Test
-    public void givenTheSameUserWhenEqualsReturnFalse() {
-
-	assertTrue(user.equals(user));
     }
 
     @Test
@@ -83,5 +67,18 @@ public class UserTest {
 	assertEquals(AUTH_SOURCE, userDTO.authSource);
 	assertEquals(FIRST_NAME, userDTO.firstName);
 	assertEquals(LAST_NAME, userDTO.lastName);
+    }
+
+    @Test
+    public void whenGetIdItShouldReturnTheUserId() {
+	UserId id = user.getId();
+	assertTrue(id.equals(USER_ID));
+    }
+
+    @Test
+    public void whenAssignIdItShouldAssignTheIdToTheUser() throws Exception {
+	UserId newId = new UserId(new Long(4));
+	user.assignId(newId);
+	assertEquals(newId, user.getId());
     }
 }
