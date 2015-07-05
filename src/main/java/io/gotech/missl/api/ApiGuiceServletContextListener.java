@@ -9,7 +9,7 @@ public class ApiGuiceServletContextListener extends GuiceServletContextListener 
     @Override
     protected Injector getInjector() {
 
-	return Guice.createInjector();
+	return Guice.createInjector(new ApiServiceModule(), new DomainModule());
 
     }
 

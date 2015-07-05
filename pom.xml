@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
     <packaging>war</packaging>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
-    <groupId>io.gotech.missl</groupId>
+<groupId>io.gotech.missl</groupId>
     <artifactId>missl</artifactId>
 
     <properties>
         <app.id>trispa-didia-2015</app.id>
         <app.version>1</app.version>
         <appengine.version>1.9.22</appengine.version>
-
-
+       <appengine.app.version>1</appengine.app.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
     </properties>
+
 
     <prerequisites>
         <maven>3.1.0</maven>
@@ -26,12 +27,12 @@
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
-            <version>${appengine.version}</version>
+            <version>1.9.6</version>
         </dependency>
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-endpoints</artifactId>
-            <version>${appengine.version}</version>
+            <version>1.9.6</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -64,30 +65,30 @@
           <artifactId>guice-servlet</artifactId>
           <version>4.0</version>
         </dependency>
-        
+
         <!-- Test Dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.11</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>2.0.2-beta</version>
+            <version>1.9.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-testing</artifactId>
-            <version>${appengine.version}</version>
+            <version>1.9.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-stubs</artifactId>
-            <version>${appengine.version}</version>
+            <version>1.9.6</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -95,7 +96,6 @@
     <build>
         <!-- for hot reload of the web application-->
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
-        <pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -123,7 +123,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.4</version>
                 <configuration>
                     <webXml>${project.build.directory}/generated-sources/appengine-endpoints/WEB-INF/web.xml</webXml>
                     <webResources>
@@ -142,14 +142,13 @@
             <plugin>
                 <groupId>com.google.appengine</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
-                <version>${appengine.version}</version>
+                <version>1.9.6</version>
                 <configuration>
                     <enableJarClasses>false</enableJarClasses>
-                    <version>${app.version}</version>
                     <!-- Comment in the below snippet to bind to all IPs instead of just localhost -->
                     <!-- address>0.0.0.0</address>
                     <port>8080</port -->
-                    <!-- Comment in the below snippet to enable local debugging with a remote debugger
+                    <!-- Comment in the below snippet to enable local debugging with a remove debugger
                          like those included with Eclipse or IntelliJ -->
                     <!-- jvmFlags>
                       <jvmFlag>-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n</jvmFlag>
@@ -163,9 +162,7 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
-        </pluginManagement>
     </build>
 
 </project>
