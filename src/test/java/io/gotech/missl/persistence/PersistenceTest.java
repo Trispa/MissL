@@ -1,6 +1,6 @@
 package io.gotech.missl.persistence;
 
-import io.gotech.missl.persistence.entities.UserEntity;
+import io.gotech.missl.persistence.users.UserEntity;
 
 import org.junit.After;
 import org.junit.Before;

@@ -1,6 +1,6 @@
 package io.gotech.missl.api;
 
-import io.gotech.missl.persistence.entities.UserEntity;
+import io.gotech.missl.persistence.users.UserEntity;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

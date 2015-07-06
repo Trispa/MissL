@@ -1,11 +1,10 @@
-package io.gotech.missl.persistence;
+package io.gotech.missl.persistence.users;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 import io.gotech.missl.domain.users.User;
 import io.gotech.missl.domain.users.UserDTO;
 import io.gotech.missl.domain.users.UserId;
 import io.gotech.missl.domain.users.UserRepository;
-import io.gotech.missl.persistence.entities.UserEntity;
 
 import com.google.inject.Inject;
 import com.googlecode.objectify.Key;

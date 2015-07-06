@@ -1,11 +1,11 @@
-package io.gotech.missl.persistence;
+package io.gotech.missl.persistence.users;
 
 import io.gotech.missl.domain.elections.VoteWeight;
 import io.gotech.missl.domain.users.UserAuthSource;
 import io.gotech.missl.domain.users.UserDTO;
 import io.gotech.missl.domain.users.UserGender;
 import io.gotech.missl.domain.users.UserId;
-import io.gotech.missl.persistence.entities.UserEntity;
+import io.gotech.missl.persistence.EntityDTOTransformer;
 
 public class UserEntityDTOTransformer implements
 	EntityDTOTransformer<UserEntity, UserDTO> {
