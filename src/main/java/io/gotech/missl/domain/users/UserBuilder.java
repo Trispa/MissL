@@ -7,7 +7,7 @@ public class UserBuilder {
     private String firstName = null;
     private String lastName = null;
     private UserGender gender = null;
-    private VoteWeight voteWeight = null;
+    private VoteWeight voteWeight = VoteWeight.DEFAULT;
     private UserAuthSource authSource = null;
 
     public UserBuilder withSex(UserGender gender) {

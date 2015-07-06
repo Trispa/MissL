@@ -6,8 +6,12 @@ public class UserAuthSource {
 	FACEBOOK
     }
 
-    public final Source authSource;
-    public final String authID;
+    public Source authSource;
+    public String authID;
+
+    public UserAuthSource() {
+
+    }
 
     public UserAuthSource(Source authSource, String authID) {
 	this.authSource = authSource;

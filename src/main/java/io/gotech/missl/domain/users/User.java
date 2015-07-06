@@ -6,6 +6,7 @@ import io.gotech.missl.domain.elections.candidates.Candidate;
 
 import com.google.api.server.spi.config.ApiTransformer;
 
+@ApiTransformer(UserTransformer.class)
 public class User {
     private UserGender gender;
     private UserId id;
@@ -14,7 +15,6 @@ public class User {
     private String lastName;
     private UserAuthSource authSource;
 
-    @ApiTransformer(UserTransformer.class)
     public User(UserId userId, UserGender userSex, VoteWeight weight,
 	    UserAuthSource authSource, String firstName, String lastName) {
 	this.gender = userSex;

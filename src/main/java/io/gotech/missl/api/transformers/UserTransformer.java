@@ -7,13 +7,20 @@ import io.gotech.missl.domain.users.UserId;
 import io.gotech.missl.domain.users.UserRepository;
 
 import com.google.api.server.spi.config.Transformer;
+import com.google.inject.Inject;
 
 public class UserTransformer implements Transformer<User, UserInfo> {
 
-    private UserRepository userRepository;
+    @Inject
+    private static UserRepository userRepository;
 
-    public UserTransformer(UserRepository userRepository) {
-	this.userRepository = userRepository;
+    @Inject
+    public UserTransformer(UserRepository userRepo) {
+	userRepository = userRepo;
+    }
+
+    public UserTransformer() {
+
     }
 
     @Override
