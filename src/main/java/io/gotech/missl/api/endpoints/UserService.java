@@ -7,6 +7,8 @@ import io.gotech.missl.domain.users.UserBuilder;
 import io.gotech.missl.domain.users.UserRepository;
 
 import com.google.api.server.spi.config.Api;
+import com.google.api.server.spi.config.ApiMethod;
+import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.inject.Inject;
 
 @Api(name = "missL", version = "v1", clientIds = { Constants.API_EXPLORER_CLIENT_ID })
@@ -21,6 +23,7 @@ public class UserService {
 	this.userRepository = userRepository;
     }
 
+    @ApiMethod(httpMethod = HttpMethod.POST)
     public User create(CreateUserRequest request) {
 	User user = userBuilder.withAuthSource(request.authSource)
 		.withFirstName(request.firstName)
