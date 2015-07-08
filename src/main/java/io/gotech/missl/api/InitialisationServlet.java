@@ -1,5 +1,6 @@
 package io.gotech.missl.api;
 
+import io.gotech.missl.persistence.UniqueConstraintEnforcer;
 import io.gotech.missl.persistence.users.UserEntity;
 
 import javax.servlet.ServletContextEvent;
@@ -21,6 +22,8 @@ public class InitialisationServlet implements ServletContextListener {
     private void registerObjectifyEntities() {
 	JodaTimeTranslators.add(ObjectifyService.factory());
 	ObjectifyService.register(UserEntity.class);
+	ObjectifyService
+		.register(UniqueConstraintEnforcer.UniqueConstraint.class);
     }
 
 }

@@ -16,7 +16,7 @@ public class PersistenceTest {
      * Implementation of the local service
      */
     protected Closeable session;
-    private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
+    protected final LocalServiceTestHelper helper = new LocalServiceTestHelper(
 	    new LocalDatastoreServiceTestConfig());
 
     /**
@@ -26,6 +26,8 @@ public class PersistenceTest {
     public void setUp() {
 	JodaTimeTranslators.add(ObjectifyService.factory());
 	ObjectifyService.register(UserEntity.class);
+	ObjectifyService
+		.register(UniqueConstraintEnforcer.UniqueConstraint.class);
 
 	helper.setUp();
 	session = ObjectifyService.begin();
