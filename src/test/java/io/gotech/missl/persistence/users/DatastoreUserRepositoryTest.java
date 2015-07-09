@@ -67,7 +67,7 @@ public class DatastoreUserRepositoryTest extends PersistenceTest {
 	Mockito.doThrow(UniqueConstraintException.class)
 		.when(enforcer)
 		.enforceUniqueConstraint(userEntityWithSameAuthSource,
-			"authSource", "authID");
+			"authSource", "authId");
 
 	repository = new DatastoreUserRepository(transformer, enforcer);
 
