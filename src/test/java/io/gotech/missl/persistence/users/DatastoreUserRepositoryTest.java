@@ -9,6 +9,8 @@ import io.gotech.missl.domain.users.UserDTO;
 import io.gotech.missl.domain.users.UserGender;
 import io.gotech.missl.domain.users.UserId;
 import io.gotech.missl.persistence.PersistenceTest;
+import io.gotech.missl.persistence.UniqueConstraintEnforcer;
+import io.gotech.missl.persistence.UniqueConstraintException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,25 +35,47 @@ public class DatastoreUserRepositoryTest extends PersistenceTest {
     @Mock
     private User user;
     @Mock
+    private User userWithSameAuthSource;
+    @Mock
+    private UserDTO userWithSameAuthSourceDTO;
+    @Mock
     private UserDTO userDTO;
+    @Mock
+    private UniqueConstraintEnforcer enforcer;
 
+    private UserEntity userEntity;
     private DatastoreUserRepository repository;
 
     @Before
-    public void initialise() {
+    public void initialise() throws NoSuchFieldException, SecurityException,
+	    IllegalArgumentException, IllegalAccessException {
 	Mockito.when(user.getDTO()).thenReturn(userDTO);
-	UserEntity userEntity = new UserEntity(USER_ID.id,
-		AUTH_SOURCE.authSource.name(), AUTH_SOURCE.authID,
-		GENDER.name(), USER_VOTE_WEIGHT.weight, FIRST_NAME, LAST_NAME);
+	userEntity = new UserEntity(USER_ID.id, AUTH_SOURCE.authSource.name(),
+		AUTH_SOURCE.authID, GENDER.name(), USER_VOTE_WEIGHT.weight,
+		FIRST_NAME, LAST_NAME);
 	Mockito.when(transformer.toEntity(userDTO)).thenReturn(userEntity);
 
-	repository = new DatastoreUserRepository(transformer);
+	Mockito.when(userWithSameAuthSource.getDTO()).thenReturn(
+		userWithSameAuthSourceDTO);
+	UserEntity userEntityWithSameAuthSource = new UserEntity(USER_ID.id,
+		AUTH_SOURCE.authSource.name(), AUTH_SOURCE.authID,
+		UserGender.MALE.name(), USER_VOTE_WEIGHT.weight, "Jeanne",
+		"D'arc");
+	Mockito.when(transformer.toEntity(userWithSameAuthSourceDTO))
+		.thenReturn(userEntityWithSameAuthSource);
+
+	Mockito.doThrow(UniqueConstraintException.class)
+		.when(enforcer)
+		.enforceUniqueConstraint(userEntityWithSameAuthSource,
+			"authSource", "authID");
+
+	repository = new DatastoreUserRepository(transformer, enforcer);
 
     }
 
     @Test
-    public void givenAUserWhenSaveUserItSavesTheUserToTheDataStore() {
-	repository.saveUser(user);
+    public void givenAUserWhenAddUserItSavesTheUserToTheDataStore() {
+	repository.addUser(user);
 	verifyThatUserIsSavedToDatastore();
     }
 
@@ -68,6 +92,19 @@ public class DatastoreUserRepositoryTest extends PersistenceTest {
 	assertEquals(GENDER.name(), entity.gender);
 	assertEquals(AUTH_SOURCE.authSource.name(), entity.authSource);
 	assertEquals(AUTH_SOURCE.authID, entity.authId);
+    }
+
+    @Test
+    public void WhenAddUserItShouldCheckVerifyTheUniqueConstraintOnAuthSource() {
+	repository.addUser(user);
+	Mockito.verify(enforcer).enforceUniqueConstraint(userEntity,
+		"authSource", "authId");
+    }
+
+    @Test(expected = UniqueConstraintException.class)
+    public void whenAddUserWithAnExistingAuthSourceItShouldRaiseAnException() {
+	repository.addUser(user);
+	repository.addUser(userWithSameAuthSource);
     }
 
 }

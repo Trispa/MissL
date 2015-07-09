@@ -39,9 +39,7 @@ public class UniqueConstraintEnforcerTest extends PersistenceTest {
     }
 
     @Test(expected = UniqueConstraintException.class)
-    public void givenAlreadyEnforcedConstraintEnforcingAgainForTheSameValuesShouldRaiseAnException()
-	    throws NoSuchFieldException, SecurityException,
-	    IllegalArgumentException, IllegalAccessException {
+    public void givenAlreadyEnforcedConstraintEnforcingAgainForTheSameValuesShouldRaiseAnException() {
 	uniqueConstraintEnforcer.enforceUniqueConstraint(userEntity,
 		"authSource", "authId");
 	uniqueConstraintEnforcer.enforceUniqueConstraint(userEntity,

@@ -7,8 +7,6 @@ import io.gotech.missl.domain.users.UserAuthSource;
 import io.gotech.missl.domain.users.UserDTO;
 import io.gotech.missl.domain.users.UserGender;
 import io.gotech.missl.domain.users.UserId;
-import io.gotech.missl.persistence.users.UserEntity;
-import io.gotech.missl.persistence.users.UserEntityDTOTransformer;
 
 import org.joda.time.DateTime;
 import org.junit.Before;

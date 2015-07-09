@@ -1,6 +1,7 @@
 package io.gotech.missl.persistence;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
+import io.gotech.missl.domain.UnexpectedException;
 
 import java.lang.reflect.Field;
 
@@ -24,9 +25,7 @@ public class UniqueConstraintEnforcer {
 	}
     }
 
-    public void enforceUniqueConstraint(Object object, String... fieldnames)
-	    throws NoSuchFieldException, SecurityException,
-	    IllegalArgumentException, IllegalAccessException {
+    public void enforceUniqueConstraint(Object object, String... fieldnames) {
 	final String uniqueConstraintKey = this.getKeyFromObject(object,
 		fieldnames);
 	final UniqueConstraint newUniqueConstraint = new UniqueConstraint();
@@ -50,19 +49,26 @@ public class UniqueConstraintEnforcer {
 	}
     }
 
-    private String getKeyFromObject(Object object, String... fieldnames)
-	    throws NoSuchFieldException, SecurityException,
-	    IllegalArgumentException, IllegalAccessException {
-	StringBuilder builder = new StringBuilder();
-	Class<?> objectClass = object.getClass();
-	builder.append(objectClass.toString());
-	for (String fieldname : fieldnames) {
-	    builder.append(":");
-	    Field field = objectClass.getField(fieldname);
-	    Object fieldValue = field.get(object);
-	    builder.append(fieldname).append("-").append(fieldValue.toString());
+    private String getKeyFromObject(Object object, String... fieldnames) {
+	try {
+	    StringBuilder builder = new StringBuilder();
+	    Class<?> objectClass = object.getClass();
+	    builder.append(objectClass.toString());
+	    for (String fieldname : fieldnames) {
+		builder.append(":");
+		Field field;
+		field = objectClass.getField(fieldname);
+
+		Object fieldValue = field.get(object);
+		builder.append(fieldname).append("-")
+			.append(fieldValue.toString());
+	    }
+	    return builder.toString();
+	} catch (SecurityException | IllegalArgumentException
+		| IllegalAccessException | NoSuchFieldException e) {
+	    throw new UnexpectedException(e);
 	}
-	return builder.toString();
+
     }
 
 }
