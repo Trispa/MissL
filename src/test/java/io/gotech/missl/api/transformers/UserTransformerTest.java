@@ -10,7 +10,7 @@ import io.gotech.missl.domain.users.UserDTO;
 import io.gotech.missl.domain.users.UserGender;
 import io.gotech.missl.domain.users.UserId;
 import io.gotech.missl.domain.users.UserRepository;
-import io.gotech.missl.persistence.entities.UserEntity;
+import io.gotech.missl.persistence.users.UserEntity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,61 +22,49 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class UserTransformerTest {
 
-    @Mock
-    private UserRepository userRepository;
+	@Mock
+	private UserRepository userRepository;
 
-    @Mock
-    private User user;
-    @Mock
-    private UserEntity userEntity;
-    
-    private UserTransformer transformer;
-    private final Long USER_INFO_ID = new Long(4);
-    private final UserInfo USER_INFO = new UserInfo(USER_INFO_ID, "John",
-	    "Doe", 3);
-    private final UserDTO USER_DTO = new UserDTO(new UserId(USER_INFO_ID),
-	    UserGender.MALE, new VoteWeight(3), new UserAuthSource(
-		    UserAuthSource.Source.FACEBOOK, "1112ldj3"), "John", "Doe");
+	@Mock
+	private User user;
+	@Mock
+	private UserEntity userEntity;
 
-    @Before
-    public void initialise() {
-	transformer = new UserTransformer(userRepository);
-	Mockito.when(user.getDTO()).thenReturn(USER_DTO);
-	
-    }
+	private UserTransformer transformer;
+	private final Long USER_INFO_ID = new Long(4);
+	private final UserInfo USER_INFO = new UserInfo(USER_INFO_ID, "John",
+			"Doe", 3);
+	private final UserDTO USER_DTO = new UserDTO(new UserId(USER_INFO_ID),
+			UserGender.MALE, new VoteWeight(3), new UserAuthSource(
+					UserAuthSource.Source.FACEBOOK, "1112ldj3"), "John", "Doe");
 
-    @Test
-    public void transformFromUserInfoRetrieveTheUserFromTheUserInfoID()
-	    throws Exception {
-	transformer.transformFrom(USER_INFO);
-	Mockito.verify(userRepository, Mockito.times(1)).findById(
-		Mockito.any(UserId.class));
-    }
+	@Before
+	public void initialise() {
+		transformer = new UserTransformer(userRepository);
+		Mockito.when(user.getDTO()).thenReturn(USER_DTO);
 
-    @Test
-    public void transformToUserInfoTransformAUserObjectToAnExpectedUserInfoObject() {
-	UserInfo userInfo = transformer.transformTo(user);
-	verifyExpectedUserInfoReturned(userInfo);
-    }
+	}
 
-    private void verifyExpectedUserInfoReturned(UserInfo userInfo) {
-	assertEquals(USER_DTO.firstName, userInfo.firstName);
-	assertEquals(USER_DTO.lastName, userInfo.lastName);
-	assertTrue(USER_DTO.voteWeight.weight == userInfo.voteWeight);
-	assertEquals(USER_DTO.id.id, userInfo.id);
-	
-	
+	@Test
+	public void transformFromUserInfoRetrieveTheUserFromTheUserInfoID()
+			throws Exception {
+		transformer.transformFrom(USER_INFO);
+		Mockito.verify(userRepository, Mockito.times(1)).findById(
+				Mockito.any(UserId.class));
+	}
 
-    }
+	@Test
+	public void transformToUserInfoTransformAUserObjectToAnExpectedUserInfoObject() {
+		UserInfo userInfo = transformer.transformTo(user);
+		verifyExpectedUserInfoReturned(userInfo);
+	}
 
-	/*@Test
-	public void testFromUserEntityToUser() throws Exception {
-		User userTransformer = transformer.FromUserEntityToUser(userEntity);
-		UserDTO userDTO = userTransformer.getDTO();
-		assertEquals(userDTO.firstName, userEntity.firstName);
-		assertEquals(userDTO.lastName, userEntity.lastName);
-		assertTrue(userDTO.voteWeight.weight == userEntity.voteWeight);
-		assertEquals(userDTO.id.id, userEntity.id);
-	}*/
+	private void verifyExpectedUserInfoReturned(UserInfo userInfo) {
+		assertEquals(USER_DTO.firstName, userInfo.firstName);
+		assertEquals(USER_DTO.lastName, userInfo.lastName);
+		assertTrue(USER_DTO.voteWeight.weight == userInfo.voteWeight);
+		assertEquals(USER_DTO.id.id, userInfo.id);
+
+	}
+
 }
-

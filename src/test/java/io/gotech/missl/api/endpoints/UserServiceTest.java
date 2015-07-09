@@ -46,7 +46,7 @@ public class UserServiceTest {
 		return null;
 	    }
 
-	}).when(userRepository).saveUser(Mockito.any(User.class));
+	}).when(userRepository).addUser(Mockito.any(User.class));
 
 	userBuilder = new UserBuilder();
 	userService = new UserService(userBuilder, userRepository);

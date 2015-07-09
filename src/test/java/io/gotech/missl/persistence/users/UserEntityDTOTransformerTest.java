@@ -1,4 +1,4 @@
-package io.gotech.missl.persistence;
+package io.gotech.missl.persistence.users;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -7,7 +7,6 @@ import io.gotech.missl.domain.users.UserAuthSource;
 import io.gotech.missl.domain.users.UserDTO;
 import io.gotech.missl.domain.users.UserGender;
 import io.gotech.missl.domain.users.UserId;
-import io.gotech.missl.persistence.entities.UserEntity;
 
 import org.joda.time.DateTime;
 import org.junit.Before;

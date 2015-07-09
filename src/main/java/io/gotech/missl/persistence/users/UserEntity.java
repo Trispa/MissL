@@ -1,4 +1,4 @@
-package io.gotech.missl.persistence.entities;
+package io.gotech.missl.persistence.users;
 
 import org.joda.time.DateTime;
 

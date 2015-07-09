@@ -32,15 +32,17 @@ public class UserService {
 	User user = userBuilder.withAuthSource(request.authSource)
 		.withFirstName(request.firstName)
 		.withLastName(request.lastName).withSex(request.gender).build();
-	this.userRepository.saveUser(user);
+	this.userRepository.addUser(user);
 	session.close();
 	return user;
     }
     
     @ApiMethod(httpMethod = HttpMethod.GET)
     public User getUser(UserId  userId){
-   
-    	return this.userRepository.findById(userId);
+    	Closeable session = ObjectifyService.begin();
+    	User user =this.userRepository.findById(userId);
+    	session.close();
+    	return user;
     }
     
     
