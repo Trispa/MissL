@@ -1,10 +1,11 @@
 package io.gotech.missl.persistence;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import io.gotech.missl.domain.elections.VoteWeight;
 import io.gotech.missl.domain.users.User;
 import io.gotech.missl.domain.users.UserAuthSource;
+import io.gotech.missl.domain.users.UserBuilder;
 import io.gotech.missl.domain.users.UserDTO;
 import io.gotech.missl.domain.users.UserGender;
 import io.gotech.missl.domain.users.UserId;
@@ -32,20 +33,24 @@ public class DatastoreUserRepositoryTest extends PersistenceTest {
     private UserEntityDTOTransformer transformer;
     @Mock
     private User user;
+    
+    private UserBuilder userBuilder = new UserBuilder();
     @Mock
     private UserDTO userDTO;
 
-    private DatastoreUserRepository repository;
 
+    private DatastoreUserRepository repository;
+    
     @Before
     public void initialise() {
 	Mockito.when(user.getDTO()).thenReturn(userDTO);
+	Mockito.when(transformer.toDTO(Mockito.any(UserEntity.class))).thenCallRealMethod();
 	UserEntity userEntity = new UserEntity(USER_ID.id,
 		AUTH_SOURCE.authSource.name(), AUTH_SOURCE.authID,
 		GENDER.name(), USER_VOTE_WEIGHT.weight, FIRST_NAME, LAST_NAME);
 	Mockito.when(transformer.toEntity(userDTO)).thenReturn(userEntity);
-
-	repository = new DatastoreUserRepository(transformer);
+	
+	repository = new DatastoreUserRepository(transformer,userBuilder);
 
     }
 
@@ -69,5 +74,18 @@ public class DatastoreUserRepositoryTest extends PersistenceTest {
 	assertEquals(AUTH_SOURCE.authSource.name(), entity.authSource);
 	assertEquals(AUTH_SOURCE.authID, entity.authId);
     }
+
+	@Test
+	public void verifyThatUsergetedHaveTheExpectedUserID() throws Exception {
+		
+		Mockito.when(user.getId()).thenCallRealMethod();
+		Mockito.doCallRealMethod().when(user).assignId(Mockito.any(UserId.class));
+		repository.saveUser(user);
+		
+		User userFound = repository.findById(user.getId());
+		assertNotNull(userFound);
+		
+	
+	}
 
 }

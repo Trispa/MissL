@@ -10,6 +10,7 @@ import io.gotech.missl.domain.users.UserDTO;
 import io.gotech.missl.domain.users.UserGender;
 import io.gotech.missl.domain.users.UserId;
 import io.gotech.missl.domain.users.UserRepository;
+import io.gotech.missl.persistence.entities.UserEntity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,9 @@ public class UserTransformerTest {
 
     @Mock
     private User user;
-
+    @Mock
+    private UserEntity userEntity;
+    
     private UserTransformer transformer;
     private final Long USER_INFO_ID = new Long(4);
     private final UserInfo USER_INFO = new UserInfo(USER_INFO_ID, "John",
@@ -39,6 +42,7 @@ public class UserTransformerTest {
     public void initialise() {
 	transformer = new UserTransformer(userRepository);
 	Mockito.when(user.getDTO()).thenReturn(USER_DTO);
+	
     }
 
     @Test
@@ -60,7 +64,19 @@ public class UserTransformerTest {
 	assertEquals(USER_DTO.lastName, userInfo.lastName);
 	assertTrue(USER_DTO.voteWeight.weight == userInfo.voteWeight);
 	assertEquals(USER_DTO.id.id, userInfo.id);
+	
+	
 
     }
 
+	/*@Test
+	public void testFromUserEntityToUser() throws Exception {
+		User userTransformer = transformer.FromUserEntityToUser(userEntity);
+		UserDTO userDTO = userTransformer.getDTO();
+		assertEquals(userDTO.firstName, userEntity.firstName);
+		assertEquals(userDTO.lastName, userEntity.lastName);
+		assertTrue(userDTO.voteWeight.weight == userEntity.voteWeight);
+		assertEquals(userDTO.id.id, userEntity.id);
+	}*/
 }
+

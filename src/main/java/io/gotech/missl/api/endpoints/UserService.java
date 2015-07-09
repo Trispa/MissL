@@ -4,6 +4,7 @@ import io.gotech.missl.api.requests.CreateUserRequest;
 import io.gotech.missl.constants.Constants;
 import io.gotech.missl.domain.users.User;
 import io.gotech.missl.domain.users.UserBuilder;
+import io.gotech.missl.domain.users.UserId;
 import io.gotech.missl.domain.users.UserRepository;
 
 import com.google.api.server.spi.config.Api;
@@ -35,4 +36,12 @@ public class UserService {
 	session.close();
 	return user;
     }
+    
+    @ApiMethod(httpMethod = HttpMethod.GET)
+    public User getUser(UserId  userId){
+   
+    	return this.userRepository.findById(userId);
+    }
+    
+    
 }

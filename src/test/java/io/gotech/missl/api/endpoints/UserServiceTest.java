@@ -30,7 +30,7 @@ public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
-
+    
     private UserBuilder userBuilder;
     private UserService userService;
     private User user;
@@ -59,4 +59,10 @@ public class UserServiceTest {
 	user = userService.create(request);
 	assertTrue(user.getId().equals(USERID));
     }
+
+	@Test
+	public void givenUsserSavedWhenGetUserReturnTheExpectedUser() throws Exception {
+		userService.getUser(USERID);
+		Mockito.verify(userRepository).findById(USERID);
+	}
 }

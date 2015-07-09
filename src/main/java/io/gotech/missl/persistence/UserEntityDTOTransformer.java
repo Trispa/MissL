@@ -1,5 +1,7 @@
 package io.gotech.missl.persistence;
 
+
+
 import io.gotech.missl.domain.elections.VoteWeight;
 import io.gotech.missl.domain.users.UserAuthSource;
 import io.gotech.missl.domain.users.UserDTO;
@@ -28,5 +30,7 @@ public class UserEntityDTOTransformer implements
 	return new UserDTO(id, gender, voteWeight, authSource,
 		entity.firstName, entity.lastName);
     }
+    
+    
 
 }
