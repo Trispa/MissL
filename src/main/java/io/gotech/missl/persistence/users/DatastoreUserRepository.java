@@ -5,6 +5,7 @@ import io.gotech.missl.domain.users.User;
 import io.gotech.missl.domain.users.UserBuilder;
 import io.gotech.missl.domain.users.UserDTO;
 import io.gotech.missl.domain.users.UserId;
+import io.gotech.missl.domain.users.UserNotFoundException;
 import io.gotech.missl.domain.users.UserRepository;
 import io.gotech.missl.persistence.UniqueConstraintEnforcer;
 
@@ -30,7 +31,11 @@ public class DatastoreUserRepository implements UserRepository {
 	public User findById(UserId userID) {
 
 		UserEntity userEntity = loadEntityFromDataBAse(userID.id);
-
+		if (userEntity == null) {
+			String message = String.format("the user with %d not existe",
+					userID.id);
+			throw new UserNotFoundException(message);
+		}
 		UserDTO userDTO = transformer.toDTO(userEntity);
 		User user = userBuilder.withAuthSource(userDTO.authSource)
 				.withFirstName(userDTO.firstName).withUserId(userDTO.id)

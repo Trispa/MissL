@@ -10,6 +10,7 @@ import io.gotech.missl.domain.users.UserBuilder;
 import io.gotech.missl.domain.users.UserDTO;
 import io.gotech.missl.domain.users.UserGender;
 import io.gotech.missl.domain.users.UserId;
+import io.gotech.missl.domain.users.UserNotFoundException;
 import io.gotech.missl.persistence.PersistenceTest;
 import io.gotech.missl.persistence.UniqueConstraintEnforcer;
 import io.gotech.missl.persistence.UniqueConstraintException;
@@ -123,6 +124,15 @@ public class DatastoreUserRepositoryTest extends PersistenceTest {
 
 		User userFound = repository.findById(user.getId());
 		assertNotNull(userFound);
+		assert (userFound.getId().equals(user.getId().id));
+
+	}
+
+	@Test(expected = UserNotFoundException.class)
+	public void givenUserNotExistFindByIdWouldThrowAnUserNotFoundException()
+			throws Exception {
+
+		repository.findById(new UserId(new Long(23)));
 
 	}
 
